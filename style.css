@@ -14,6 +14,7 @@ body {
 
 .page-content {
   max-width: 430px;
+  background-color: bisque;
 }
 
 li {
@@ -25,6 +26,40 @@ a {
 }
 
 /* LOGO AND HEADER */
+.top-div{
+  display: flex;
+  justify-content: space-between;
+}
+
+#logo-and-header .logo{
+  width: 132px;
+  background: url(assets/9ee6e396f372a332728f2a1519d49358.png), lightgray 50% / cover no-repeat;
+  border-radius: 54px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  height: 108px;
+  object-fit: cover;
+  margin:1rem 2rem
+}
+
+.heading{
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0 6rem;
+  padding: 0 0 0.2rem 0;
+  border-bottom: solid 2px #D5B263;
+}
+
+.heading h1{
+  font-size: 1.9rem;
+  padding: 0.3rem 0;
+  font-weight: 700;
+}
+
+.heading h2{
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #D5B263;
+}
 
 /* TO - DO´S */
 #to-dos li {
