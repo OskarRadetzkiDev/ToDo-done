@@ -9,6 +9,11 @@
 body {
   max-width: 430px;
   font-style: "Roboto", sans-serif;
+  margin: 0 auto;
+}
+
+.page-content {
+  max-width: 430px;
 }
 
 li {
