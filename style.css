@@ -135,8 +135,8 @@ a {
 /* LOWER */
 #lower {
   display: flex;
-  padding: 15px;
-  justify-content: space-around;
+  padding: 30px;
+  justify-content: space-between;
   background-color: #c9ad8b70
 }
 
