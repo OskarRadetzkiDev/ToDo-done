@@ -13,7 +13,15 @@
       </header>
       <main>
         <section id="to-dos"></section>
-        <section id="lower"></section>
+        <section id="lower">
+          <div class="lower-bar">
+            <p class="lower-p">Tasks completed: 5%</p>
+            <progress id="progress" max="100" value="5"></progress>
+          </div>
+          <div class="lower-button">
+            <button id="addButton"><img src="assets/plus.png" alt="plus"></button>
+          </div>
+        </section>
       </main>
     </div>
     <script src="index.js"></script>
