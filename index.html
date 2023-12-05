@@ -9,19 +9,44 @@
   <body>
     <div class="page-content">
       <header>
-        <section id="logo-and-header"></section>
-      </header>
-      <main>
-        <section id="to-dos"></section>
-        <section id="lower">
-          <div class="lower-bar">
-            <p class="lower-p">Tasks completed: 5%</p>
-            <progress id="progress" max="100" value="5"></progress>
+        <section id="logo-and-header">
+          <div class="top-div">
+            <img class="logo" src="assets/logo.png" alt="Logo">
+            <img class="corner-style" src="assets/Ellipse 1.png" alt="background">
           </div>
-          <div class="lower-button">
-            <button id="addButton"><img src="assets/plus.png" alt="plus"></button>
+          <div class="heading">
+            <h1>My Tasks</h1>
+            <h2>2 of 7 Tasks</h2>
           </div>
         </section>
+      </header>
+      <main>
+        <section id="to-dos">
+          <ul>
+            <li>
+              <label class="option">
+                <input type="checkbox" />
+                <span class="custom-checkbox"></span>
+              </label>
+              
+              <div class="todo-name-and-date">
+                <h2>Label Name</h2>
+                <p class="date">Mon, den 04.12</p>
+              </div>
+              
+              <img src="./assets/Icon-Set-Filled.png" alt="" />
+            </li>
+          </ul>
+        </section>
+                <section id="lower">
+                  <div class="lower-bar">
+                    <p class="lower-p">Tasks completed: 5%</p>
+                    <progress id="progress" max="100" value="5"></progress>
+                  </div>
+                  <div class="lower-button">
+                    <button id="addButton"><img src="assets/plus.png" alt="plus"></button>
+                  </div>
+                </section>
       </main>
     </div>
     <script src="index.js"></script>
