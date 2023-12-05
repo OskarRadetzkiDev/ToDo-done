@@ -151,10 +151,29 @@ a {
   justify-content: center;
 }
 
+.progress-bar {
+  background-color: #FBC072;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  margin: 1rem 0;
+  height: 8px;
+  width: 200px;
+
+  max-width: 100%;
+}
+
+.progress {
+  background: #293040;
+  border-radius: 5px;
+  height: 8px;
+  width: 0;
+  transition: width 0.5s ease-in;
+}
+
 #addButton {
   display: flex;
   height: 80px;
-  padding: 0px 16px;
+  padding: 0px 0px;
   justify-content: center;
   align-items: center;
   gap: 40px;
