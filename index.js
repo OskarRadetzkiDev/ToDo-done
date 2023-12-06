@@ -12,7 +12,15 @@ function saveList() {
 }
 
 function loadList() {
+	taskList.innerHTML = ""
 	const items = JSON.parse(localStorage.getItem("Task-List"))
+	console.log(items)
+	if(items){
+	items.forEach(element => {
+		const li = document.createElement("li")
+		li.innerHTML = element[0]
+		taskList.appendChild(li)
+	})}
 }
 
 //create list element by on click
@@ -35,6 +43,7 @@ addButton.addEventListener("click", function() {
 	delButton.addEventListener("click", function() {
 		li.remove()
 		saveList()
+		loadList()
 	})
 
 //add delButton to each list element
@@ -42,6 +51,7 @@ addButton.addEventListener("click", function() {
 //add list item to taskList(ul)
 	taskList.appendChild(li)
 	saveList()
+	loadList()
 })
 
 
