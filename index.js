@@ -7,6 +7,7 @@ const inputField = document.getElementsByClassName("todoInput")
 const saveButton = document.getElementById("save-button")
 const loadButton = document.getElementById("load-button")
 
+
 function saveList() {
   const items = [];
   const dates = [];
@@ -14,11 +15,13 @@ function saveList() {
   const localStorageArray = [];
   const inputTodoArray = Array.from(document.getElementsByClassName("todoInput"))
   const inputDateArray = Array.from(document.getElementsByClassName("date"))
+  const inputCheckArray = Array.from(document.getElementsByClassName("inputCheck"))
   inputTodoArray.forEach((element) => items.push(element.value));
   inputDateArray.forEach((element) => dates.push(element.innerHTML));
+  inputCheckArray.forEach((element) => checked.push(element.checked));
 
   for (let i = 0; i < items.length; i++) {
-    localStorageArray.push([items[i], dates[i]]);
+    localStorageArray.push([items[i], dates[i], checked[i]]);
   }
   localStorage.setItem("Task-List", JSON.stringify(localStorageArray));
 }
@@ -29,11 +32,11 @@ function saveList() {
 function loadList() {
   taskList.innerHTML = "";
   const items = JSON.parse(localStorage.getItem("Task-List"));
-  console.log(items);
   if (items) {
-    
+    console.log(items)
     items.forEach((element) => {
-      createLiElement(element[0], element[1])
+      element[2] === true ? element[2] = "checked" : false;
+      createLiElement(element[0], element[1], element[2])
     });
   }
 }
@@ -49,12 +52,13 @@ const year = currentDate.getFullYear().toString().slice(2);
 const formattedDate = `${dayOfWeek}, ${dayOfMonth}.${month}`;
 console.log(formattedDate)
 
-function createLiElement(text="Was gibts?", date=formattedDate) {
+function createLiElement(text="Was gibts?", date=formattedDate, checked) {
+  
   const li = document.createElement("li");
   li.innerHTML = `
 		<label class="option">
-			<input type="checkbox" />
-			<span class="custom-checkbox "></span>
+			<input type="checkbox" class="inputCheck" ${checked}/>
+			<span class="custom-checkbox"></span>
 		</label>
 		<div class="todo-name-and-date">
 			<input type="text" placeholder="" class="todoInput" value="${text}">
@@ -63,7 +67,7 @@ function createLiElement(text="Was gibts?", date=formattedDate) {
 `;
 
   taskList.appendChild(li);
-    const delButton = document.createElement("button");
+    const delButton = document.createElement("button.delbutton");
     delButton.innerHTML = `<img src="./assets/Icon-Set-Filled.png" alt="" />`;
 
     delButton.addEventListener("click", function () {
@@ -85,15 +89,12 @@ function addEventListenerToElement(element) {
   element.addEventListener('focusout', () => {
     saveList();
   })
+  element.addEventListener('click', () => {
+    saveList();
+  })
 }
 
 
-const allInputs = Array.from(inputField);
-allInputs.forEach((element) => {
-  element.addEventListener("mouseover", () => {
-    console.log("456465")
-  })
-})
 
 //Logic of progressbar
 const progress_bars = document.querySelectorAll(".progress");

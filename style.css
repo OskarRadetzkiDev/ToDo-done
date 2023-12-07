@@ -118,6 +118,18 @@ a {
   transform: rotate(45deg);
 }
 
+.todoInput{
+  background: none;
+  border: none;
+  font-weight: 500;
+}
+
+.todoInput:focus {
+  background: none;
+  border: none;
+  font-weight: 500;
+}
+
 #to-dos li h2 {
   font-weight: 500;
 }
@@ -131,6 +143,10 @@ a {
 #to-dos li p {
   color: gray;
   font-weight: 300;
+}
+
+.delbutton{
+  border: none;
 }
 /* LOWER */
 #lower {
