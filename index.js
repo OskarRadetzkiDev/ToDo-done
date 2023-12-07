@@ -1,21 +1,21 @@
 // Logic of addFunction
 
-//access to DOM elements
+// access to DOM elements
 const addButton = document.getElementById("addButton");
 const taskList = document.getElementById("taskList");
-const inputField = document.getElementsByClassName("todoInput")
-const saveButton = document.getElementById("save-button")
-const loadButton = document.getElementById("load-button")
+const inputField = document.getElementsByClassName("todoInput");
+const saveButton = document.getElementById("save-button");
+const loadButton = document.getElementById("load-button");
 
-
+// save list
 function saveList() {
   const items = [];
   const dates = [];
   const checked = [];
   const localStorageArray = [];
-  const inputTodoArray = Array.from(document.getElementsByClassName("todoInput"))
-  const inputDateArray = Array.from(document.getElementsByClassName("date"))
-  const inputCheckArray = Array.from(document.getElementsByClassName("inputCheck"))
+  const inputTodoArray = Array.from(document.getElementsByClassName("todoInput"));
+  const inputDateArray = Array.from(document.getElementsByClassName("date"));
+  const inputCheckArray = Array.from(document.getElementsByClassName("inputCheck"));
   inputTodoArray.forEach((element) => items.push(element.value));
   inputDateArray.forEach((element) => dates.push(element.innerHTML));
   inputCheckArray.forEach((element) => checked.push(element.checked));
@@ -26,34 +26,31 @@ function saveList() {
   localStorage.setItem("Task-List", JSON.stringify(localStorageArray));
 }
 
-
-
-
+// load list
 function loadList() {
   taskList.innerHTML = "";
   const items = JSON.parse(localStorage.getItem("Task-List"));
   if (items) {
-    console.log(items)
+    console.log(items);
     items.forEach((element) => {
-      element[2] === true ? element[2] = "checked" : false;
-      createLiElement(element[0], element[1], element[2])
+      element[2] === true ? (element[2] = "checked") : false;
+      createLiElement(element[0], element[1], element[2]);
     });
   }
 }
 
-const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+// date
+const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const currentDate = new Date();
-
 const dayOfWeek = daysOfWeek[currentDate.getDay()];
-const dayOfMonth = currentDate.getDate().toString().padStart(2, '0');
-const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+const dayOfMonth = currentDate.getDate().toString().padStart(2, "0");
+const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
 const year = currentDate.getFullYear().toString().slice(2);
 
 const formattedDate = `${dayOfWeek}, ${dayOfMonth}.${month}`;
-console.log(formattedDate)
 
-function createLiElement(text="Was gibts?", date=formattedDate, checked) {
-  
+// create list element
+function createLiElement(text = "", date = formattedDate, checked) {
   const li = document.createElement("li");
   li.innerHTML = `
 		<label class="option">
@@ -67,34 +64,37 @@ function createLiElement(text="Was gibts?", date=formattedDate, checked) {
 `;
 
   taskList.appendChild(li);
-    const delButton = document.createElement("button.delbutton");
-    delButton.innerHTML = `<img src="./assets/Icon-Set-Filled.png" alt="" />`;
+  const delButton = document.createElement("button.delbutton");
+  delButton.innerHTML = `<img src="./assets/Icon-Set-Filled.png" alt="" />`;
 
-    delButton.addEventListener("click", function () {
-      li.remove();
-      saveList();
-      // loadList();
-    });
-    li.appendChild(delButton);
+  delButton.addEventListener("click", function () {
+    li.remove();
+    saveList();
+    // loadList();
+  });
+  li.appendChild(delButton);
   addEventListenerToElement(li);
 }
 
-//create list element by click on add button
+// create list element by click on add button
 addButton.addEventListener("click", function () {
   createLiElement();
+  setFocus();
 });
 
-
+// add event listener to element
 function addEventListenerToElement(element) {
-  element.addEventListener('focusout', () => {
+  element.addEventListener("focusout", () => {
     saveList();
-  })
-  element.addEventListener('click', () => {
+  });
+  element.addEventListener("click", () => {
     saveList();
-  })
+  });
 }
 
-
+function setFocus() {
+  inputField[inputField.length - 1].focus();
+}
 
 //Logic of progressbar
 const progress_bars = document.querySelectorAll(".progress");
@@ -106,4 +106,5 @@ progress_bars.forEach((bar) => {
   }, 1000);
 });
 
+// load list by loading page
 loadList();
