@@ -7,12 +7,48 @@ const inputField = document.getElementsByClassName("todoInput");
 const saveButton = document.getElementById("save-button");
 const loadButton = document.getElementById("load-button");
 
+let checkedLength = 0;
+
+function setCheckedTasks() {
+  let tasks = JSON.parse(localStorage.getItem("Task-List"));
+  checkedLength = 0;
+  tasks.forEach((element) => {
+    element[2] === true ? checkedLength++ : undefined;
+  });
+}
+setCheckedTasks();
+setTaskCounter();
+
+function setTaskCounter() {
+  let tasks = JSON.parse(localStorage.getItem("Task-List"));
+  let taskCounter = document.getElementById("task-counter");
+  taskCounter.innerText = `${checkedLength} of ${tasks.length} Tasks`;
+  console.log("TASKCOUNTER:", taskCounter.innerText);
+  console.log("BERECHNUNG", (checkedLength / tasks.length) * 100);
+  if (tasks.length > 0) {
+    let percent = Math.round((checkedLength / tasks.length) * 100);
+    const progressName = document.getElementById("progress-name");
+    progressName.innerText = `Tasks completed: ${percent}%`;
+    // const progressBar = document.getElementById("progress-bar");
+    // progressBar.dataset.size = percent;
+    setProgressBar(percent);
+    updateProgessbar();
+  }
+}
+
+function setProgressBar(percentvalue) {
+  document.getElementById("progress-bar-div").innerHTML = `
+  <div id="progress-bar" data-size="${percentvalue}" class="progress"></div>`;
+}
+
 // save list
 function saveList() {
   const items = [];
   const dates = [];
   const checked = [];
+
   const localStorageArray = [];
+  console.log(localStorageArray);
   const inputTodoArray = Array.from(document.getElementsByClassName("todoInput"));
   const inputDateArray = Array.from(document.getElementsByClassName("date"));
   const inputCheckArray = Array.from(document.getElementsByClassName("inputCheck"));
@@ -20,10 +56,20 @@ function saveList() {
   inputDateArray.forEach((element) => dates.push(element.innerHTML));
   inputCheckArray.forEach((element) => checked.push(element.checked));
 
+  // let counter = 0;
+  // localStorageArray.forEach((el) => {
+  //   el[2] === "checked" ? counter++ : undefined;
+  //   return counter;
+  // });
+  // console.log("COUNTER:", counter);
+  // checkedLength = counter;
+
   for (let i = 0; i < items.length; i++) {
     localStorageArray.push([items[i], dates[i], checked[i]]);
   }
   localStorage.setItem("Task-List", JSON.stringify(localStorageArray));
+  setCheckedTasks();
+  setTaskCounter();
 }
 
 // load list
@@ -37,6 +83,8 @@ function loadList() {
       createLiElement(element[0], element[1], element[2]);
     });
   }
+  setCheckedTasks();
+  setTaskCounter();
 }
 
 // date
@@ -80,6 +128,8 @@ function createLiElement(text = "", date = formattedDate, checked) {
 addButton.addEventListener("click", function () {
   createLiElement();
   setFocus();
+  saveList();
+  setTaskCounter();
 });
 
 // add event listener to element
@@ -89,6 +139,14 @@ function addEventListenerToElement(element) {
   });
   element.addEventListener("click", () => {
     saveList();
+    setCheckedTasks();
+    setTaskCounter();
+  });
+  element.addEventListener("keydown", function (e) {
+    if (e.code === "Enter") {
+      createLiElement();
+      setFocus();
+    }
   });
 }
 
@@ -97,14 +155,15 @@ function setFocus() {
 }
 
 //Logic of progressbar
-const progress_bars = document.querySelectorAll(".progress");
+function updateProgessbar() {
+  const progress_bars = document.querySelectorAll(".progress");
 
-progress_bars.forEach((bar) => {
-  setTimeout(() => {
-    const { size } = bar.dataset;
-    bar.style.width = `${size}%`;
-  }, 1000);
-});
-
+  progress_bars.forEach((bar) => {
+    setTimeout(() => {
+      const { size } = bar.dataset;
+      bar.style.width = `${size}%`;
+    }, 10);
+  });
+}
 // load list by loading page
 loadList();
