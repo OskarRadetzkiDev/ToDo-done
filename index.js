@@ -6,32 +6,37 @@ const taskList = document.getElementById("taskList");
 const inputField = document.getElementsByClassName("todoInput");
 const saveButton = document.getElementById("save-button");
 const loadButton = document.getElementById("load-button");
+const taskCounter = document.getElementById("task-counter")
+const progressName = document.getElementById("progress-name");
 
 let checkedLength = 0;
 
 function setCheckedTasks() {
   let tasks = JSON.parse(localStorage.getItem("Task-List"));
   checkedLength = 0;
-  tasks.forEach((element) => {
-    element[2] === true ? checkedLength++ : undefined;
-  });
+  if (tasks != null){
+    tasks.forEach((element) => {
+      element[2] === true ? checkedLength++ : undefined;
+    });
+  }
 }
 setCheckedTasks();
 setTaskCounter();
 
 function setTaskCounter() {
   let tasks = JSON.parse(localStorage.getItem("Task-List"));
-  let taskCounter = document.getElementById("task-counter");
-  taskCounter.innerText = `${checkedLength} of ${tasks.length} Tasks`;
-
-  if (tasks.length > 0) {
+  if (tasks.length === 0){
+    taskCounter.innerText = `Let´s get startet...`;
+    progressName.innerText = `No tasks to complete`
+  } else if (tasks != null) {
+    taskCounter.innerText = `${checkedLength} of ${tasks.length} Tasks`;
     let percent = Math.round((checkedLength / tasks.length) * 100);
-    const progressName = document.getElementById("progress-name");
     progressName.innerText = `Tasks completed: ${percent}%`;
-
-    setProgressBar(percent);
-    updateProgessbar();
-  }
+    
+      setProgressBar(percent);
+      updateProgessbar();
+    
+    }
 }
 
 function setProgressBar(percentvalue) {
