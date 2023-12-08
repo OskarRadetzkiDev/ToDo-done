@@ -169,7 +169,7 @@ input {
 /* LOWER */
 #lower {
   display: flex;
-  padding: 30px;
+  padding: 18px 30px;
   justify-content: space-between;
   background-color: #c9ad8b70;
   position: absolute;
