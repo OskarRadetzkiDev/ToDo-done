@@ -23,14 +23,12 @@ function setTaskCounter() {
   let tasks = JSON.parse(localStorage.getItem("Task-List"));
   let taskCounter = document.getElementById("task-counter");
   taskCounter.innerText = `${checkedLength} of ${tasks.length} Tasks`;
-  console.log("TASKCOUNTER:", taskCounter.innerText);
-  console.log("BERECHNUNG", (checkedLength / tasks.length) * 100);
+
   if (tasks.length > 0) {
     let percent = Math.round((checkedLength / tasks.length) * 100);
     const progressName = document.getElementById("progress-name");
     progressName.innerText = `Tasks completed: ${percent}%`;
-    // const progressBar = document.getElementById("progress-bar");
-    // progressBar.dataset.size = percent;
+
     setProgressBar(percent);
     updateProgessbar();
   }
@@ -46,23 +44,14 @@ function saveList() {
   const items = [];
   const dates = [];
   const checked = [];
-
   const localStorageArray = [];
-  console.log(localStorageArray);
   const inputTodoArray = Array.from(document.getElementsByClassName("todoInput"));
   const inputDateArray = Array.from(document.getElementsByClassName("date"));
   const inputCheckArray = Array.from(document.getElementsByClassName("inputCheck"));
+
   inputTodoArray.forEach((element) => items.push(element.value));
   inputDateArray.forEach((element) => dates.push(element.innerHTML));
   inputCheckArray.forEach((element) => checked.push(element.checked));
-
-  // let counter = 0;
-  // localStorageArray.forEach((el) => {
-  //   el[2] === "checked" ? counter++ : undefined;
-  //   return counter;
-  // });
-  // console.log("COUNTER:", counter);
-  // checkedLength = counter;
 
   for (let i = 0; i < items.length; i++) {
     localStorageArray.push([items[i], dates[i], checked[i]]);
@@ -77,7 +66,6 @@ function loadList() {
   taskList.innerHTML = "";
   const items = JSON.parse(localStorage.getItem("Task-List"));
   if (items) {
-    console.log(items);
     items.forEach((element) => {
       element[2] === true ? (element[2] = "checked") : false;
       createLiElement(element[0], element[1], element[2]);
